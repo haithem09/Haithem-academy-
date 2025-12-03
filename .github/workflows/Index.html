@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SafeHack Academy – Haithem Aouled Amor</title>
+  <meta name="description" content="SafeHack Academy - تعليم الأمن السيبراني القانوني بثلاث لغات (AR/EN/RU)" />
+
+  <style>
+    :root{
+      --bg:#0a0a0a; --card:#111; --muted:#bdbdbd; --accent:#f6c94d; --accent-2:#00e5ff;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: "Tajawal", "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg,#060606 0%, #0d0d0d 100%); color:#fff; -webkit-font-smoothing:antialiased;
+    }
+
+    /* HEADER */
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(4px)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo-wrap{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#cfa21a);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .logo-text{font-weight:700;color:#061018}
+    .site-title{font-weight:700;font-size:18px}
+    nav a{color:var(--muted);text-decoration:none;margin-inline:10px;font-size:15px}
+    nav a:hover{color:var(--accent-2)}
+    .lang-switch{display:flex;gap:8px;align-items:center}
+    .lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .lang-btn.active{border-color:var(--accent);color:var(--accent);}
+
+    /* LAYOUT */
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    .hero{display:flex;gap:20px;align-items:center;justify-content:space-between;padding:30px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+    .hero .left{flex:1}
+    .hero h1{margin:0;font-size:34px;color:var(--accent-2)}
+    .hero p{color:var(--muted);font-size:16px;margin-top:8px}
+    .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#061018;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700;cursor:pointer;border:none}
+    .btn.outline{background:transparent;color:var(--accent);border:1px solid rgba(255,255,255,0.04)}
+
+    .profile{width:220px;padding:14px;background:var(--card);border-radius:12px;border:1px solid rgba(255,255,255,0.03);text-align:center}
+    .avatar{width:96px;height:96px;border-radius:999px;object-fit:cover;border:3px solid rgba(255,255,255,0.06)}
+    .profile h3{margin:10px 0 4px;color:var(--accent)}
+    .profile p{font-size:13px;color:var(--muted);margin:0}
+
+    /* GRID SECTIONS */
+    .sections{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-top:22px}
+    .card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    h2{margin:0;color:var(--accent);font-size:20px}
+
+    .courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
+    .course{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+    .course h3{margin:0;font-size:16px;color:var(--accent-2)}
+    .course p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    /* TABS for languages */
+    .tabs{display:flex;gap:8px;margin-top:12px}
+    .tab{padding:8px 10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--muted)}
+    .tab.active{background:rgba(255,255,255,0.02);border-color:var(--accent);color:var(--accent)}
+
+    /* FOOTER */
+    footer{margin-top:26px;padding:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* MODALS & FORMS */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60}
+    .modal.active{display:flex}
+    .modal .box{background:#080808;padding:20px;border-radius:12px;min-width:320px;border:1px solid rgba(255,255,255,0.04)}
+    .form-row{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+    input[type="text"],input[type="email"],input[type="password"],select,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:#fff}
+    label{font-size:13px;color:var(--muted)}
+    .small{font-size:13px;color:var(--muted);margin-top:8px}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .sections{grid-template-columns:1fr}
+      header{flex-direction:column;gap:10px;align-items:flex-start}
+      .hero{flex-direction:column;align-items:flex-start}
+      .profile{width:100%}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo-wrap" aria-hidden="true">
+      <!-- simple icon text inside circle -->
+      <span class="logo-text">SH</span>
+    </div>
+    <div>
+      <div class="site-title">SafeHack Academy</div>
+      <div style="font-size:12px;color:var(--muted)">Haithem Aouled Amor — Cybersecurity Instructor</div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:12px">
+    <nav>
+      <a href="#home" data-i18="nav_home">الرئيسية</a>
+      <a href="#courses" data-i18="nav_courses">الدروس</a>
+      <a href="#labs" data-i18="nav_labs">المختبرات</a>
+      <a href="#terms" data-i18="nav_terms">الشروط</a>
+    </nav>
+
+    <div class="lang-switch" style="margin-left:12px">
+      <button class="lang-btn active" data-lang="ar">AR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+
+    <button class="btn outline" id="loginBtn" style="margin-inline-start:8px" data-i18="login">تسجيل دخول</button>
+    <button class="btn" id="signupBtn" data-i18="signup">التسجيل</button>
+  </div>
+</header>
+
+<main class="container" id="home">
+  <section class="hero">
+    <div class="left">
+      <h1 data-i18="hero_title">تعلم الأمن السيبراني بطريقة قانونية</h1>
+      <p data-i18="hero_sub">دورات بالعربية، English وРусский — محتوى عملي، مختبرات معزولة، وCTF قانوني.</p>
+      <div class="cta">
+        <button class="btn" id="startNow" data-i18="start_now">ابدأ الآن</button>
+        <a href="#courses" class="btn outline" data-i18="explore">استعرض الدورات</a>
+      </div>
+    </div>
+
+    <aside class="profile">
+      <!-- استبدل profile.jpg بالصورة الفعلية -->
+      <img src="profile.jpg" alt="Haithem Aouled Amor" class="avatar" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2296%22 height=%2296%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23111111%22/><text x=%2250%25%22 y=%2255%25%22 font-size=%2224%22 fill=%22%23f6c94d%22 text-anchor=%22middle%22 font-family=%22Arial%22>H</text></svg>'" />
+      <h3 id="profileName">Haithem Aouled Amor</h3>
+      <p data-i18="profile_desc">مؤسس SafeHack Academy — مدرب أمن سيبراني</p>
+      <div style="margin-top:12px">
+        <button class="btn" onclick="openModal('contact')">اتصل بي</button>
+      </div>
+    </aside>
+  </section>
+
+  <div class="sections">
+    <div>
+      <section class="card" id="courses">
+        <h2 data-i18="courses_title">الدورات المتاحة</h2>
+        <div class="tabs" style="margin-top:10px">
+          <button class="tab active" data-cat="all" data-i18="tab_all">الكل</button>
+          <button class="tab" data-cat="beginner" data-i18="tab_beginner">مبتدئ</button>
+          <button class="tab" data-cat="advanced" data-i18="tab_advanced">متقدم</button>
+        </div>
+
+        <div class="courses-grid" id="courseGrid">
+          <!-- Course items will be injected -->
+        </div>
+      </section>
+
+      <section class="card" id="labs" style="margin-top:16px">
+        <h2 data-i18="labs_title">المختبرات وCTF</h2>
+        <p class="small" data-i18="labs_desc">مختبرات معزولة لتجربة ما تعلمته. يتطلب قبول اتفاقية الاستخدام قبل الوصول.</p>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" onclick="openLab('owasp')">OWASP Juice Shop</button>
+          <button class="btn outline" onclick="openLab('ctf')">CTF Practice</button>
+        </div>
+      </section>
+
+      <section class="card" id="about" style="margin-top:16px">
+        <h2 data-i18="about_title">من نحن</h2>
+        <p data-i18="about_desc">SafeHack Academy هي منصة تعليمية تركز على أمن المعلومات بشكل قانوني وأخلاقي. كل المتدربين يوقعوا اتفاقية استخدام قبل الوصول للبيئات العملية.</p>
+      </section>
+
+      <section class="card" id="terms" style="margin-top:16px">
+        <h2 data-i18="terms_title">الشروط واتفاقية الاستخدام</h2>
+        <p class="small" data-i18="terms_intro">لاستخدام المختبرات، يجب على المتعلم الموافقة على الشروط التالية:</p>
+        <ul class="small" id="rulesList">
+          <li data-i18="rule1">أتعهد بأن أستخدم المواد لأغراض تعليمية ودفاعية فقط.</li>
+          <li data-i18="rule2">لا أستعمل أي تقنيات ضد أنظمة أو خدمات بدون إذن صريح.</li>
+          <li data-i18="rule3">أعلم أن أي خرق لهذه الشروط يعرض حسابي للإيقاف وقد يتم إبلاغ الجهات المختصة.</li>
+        </ul>
+        <div style="margin-top:10px">
+          <label style="display:flex;gap:8px;align-items:center">
+            <input type="checkbox" id="agreeRules" /> <span class="small" data-i18="agree_text">أوافق على الشروط وأتحمل المسؤولية</span>
+          </label>
+          <div style="margin-top:8px">
+            <button class="btn" onclick="accessLabs()" data-i18="access_labs">الوصول للمختبر</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <aside>
+      <div class="card">
+        <h2 data-i18="instructor">المدرّب</h2>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+          <img src="profile.jpg" alt="instructor" style="width:64px;height:64px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.04)" onerror="this.style.display='none'">
+          <div>
+            <div style="color:var(--accent-2);font-weight:700">Haithem Aouled Amor</div>
+            <div style="font-size:13px;color:var(--muted)">Trainer • Cybersecurity</div>
+          </div>
+        </div>
+        <p class="small" style="margin-top:12px" data-i18="bio_short">أكثر من سنوات في الأمن السيبراني، متخصص في تأمين التطبيقات والشبكات، وملتزم بالتدريب القانوني والأخلاقي.</p>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h2 data-i18="quick_links">روابط سريعة</h2>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <a class="tab" href="#courses" data-i18="nav_courses">الدورات</a>
+          <a class="tab" href="#labs" data-i18="nav_labs">المختبرات</a>
+          <a class="tab" href="#terms" data-i18="nav_terms">الشروط</a>
+          <a class="tab" href="#" onclick="openModal('contact')">اتصل</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    © 2025 SafeHack Academy — Haithem Aouled Amor • <span data-i18="footer_legal">التزام قانوني وأخلاقي</span>
+  </footer>
+</main>
+
+<!-- MODALS -->
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="box">
+    <div id="modalContent"></div>
+    <div style="text-align:right;margin-top:12px">
+      <button class="btn outline" onclick="closeModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Content (multilingual strings) ---------- */
+const STRINGS = {
+  ar: {
+    nav_home:'الرئيسية', nav_courses:'الدروس', nav_labs:'المختبرات', nav_terms:'الشروط',
+    login:'تسجيل دخول', signup:'التسجيل',
+    hero_title:'تعلم الأمن السيبراني بطريقة قانونية',
+    hero_sub:'دورات بالعربية، English وРусский — محتوى عملي، مختبرات معزولة، وCTF قانوني.',
+    start_now:'ابدأ الآن', explore:'استعرض الدورات',
+    profile_desc:'مؤسس SafeHack Academy — مدرب أمن سيبراني',
+    courses_title:'الدورات المتاحة', tab_all:'الكل', tab_beginner:'مبتدئ', tab_advanced:'متقدم',
+    labs_title:'المختبرات وCTF', labs_desc:'مختبرات معزولة لتجربة ما تعلمته. يتطلب قبول اتفاقية الاستخدام قبل الوصول.',
+    about_title:'من نحن', about_desc:'SafeHack Academy هي منصة تعليمية تركز على أمن المعلومات بشكل قانوني وأخلاقي. كل المتدربين يوقعوا اتفاقية استخدام قبل الوصول للبيئات العملية.',
+    terms_title:'الشروط واتفاقية الاستخدام', terms_intro:'لاستخدام المختبرات، يجب على المتعلم الموافقة على الشروط التالية:',
+    rule1:'أتعهد بأن أستخدم المواد لأغراض تعليمية ودفاعية فقط.',
+    rule2:'لا أستعمل أي تقنيات ضد أنظمة أو خدمات بدون إذن صريح.',
+    rule3:'أعلم أن أي خرق لهذه الشروط يعرض حسابي للإيقاف وقد يتم إبلاغ الجهات المختصة.',
+    agree_text:'أوافق على الشروط وأتحمل المسؤولية', access_labs:'الوصول للمختبر',
+    instructor:'المدرّب', bio_short:'أكثر من سنوات في الأمن السيبراني، متخصص في تأمين التطبيقات والشبكات، وملتزم بالتدريب القانوني والأخلاقي.',
+    quick_links:'روابط سريعة', footer_legal:'التزام قانوني وأخلاقي'
+  },
+  en: {
+    nav_home:'Home', nav_courses:'Courses', nav_labs:'Labs', nav_terms:'Terms',
+    login:'Login', signup:'Sign Up',
+    hero_title:'Learn Cybersecurity — Legally & Practically',
+    hero_sub:'Courses in Arabic, English and Russian — hands-on content, isolated labs, and legal CTFs.',
+    start_now:'Start Now', explore:'Explore Courses',
+    profile_desc:'Founder of SafeHack Academy — Cybersecurity Instructor',
+    courses_title:'Available Courses', tab_all:'All', tab_beginner:'Beginner', tab_advanced:'Advanced',
+    labs_title:'Labs & CTF', labs_desc:'Isolated labs to practice what you learn. Accept Terms of Use before access.',
+    about_title:'About Us', about_desc:'SafeHack Academy is an educational platform focusing on legal and ethical cybersecurity training. All learners sign an agreement before accessing practice environments.',
+    terms_title:'Terms & Usage Agreement', terms_intro:'To access labs you must accept the following conditions:',
+    rule1:'I commit to use the materials for educational and defensive purposes only.',
+    rule2:'I will not use techniques against systems or services without explicit authorization.',
+    rule3:'I understand violation may lead to account suspension and reporting to authorities.',
+    agree_text:'I agree to the terms and accept responsibility', access_labs:'Access Lab',
+    instructor:'Instructor', bio_short:'Years of experience in cybersecurity, specializing in app & network hardening, committed to legal and ethical training.',
+    quick_links:'Quick Links', footer_legal:'Legal & Ethical Commitment'
+  },
+  ru: {
+    nav_home:'Главная', nav_courses:'Курсы', nav_labs:'Лабы', nav_terms:'Условия',
+    login:'Войти', signup:'Регистрация',
+    hero_title:'Изучайте кибербезопасность — законно',
+    hero_sub:'Курсы на арабском, английском и русском — практический контент, изолированные лаборатории и CTF.',
+    start_now:'Начать', explore:'Курсы',
+    profile_desc:'Основатель SafeHack Academy — тренер по кибербезопасности',
+    courses_title:'Доступные курсы', tab_all:'Все', tab_beginner:'Начальный', tab_advanced:'Продвинутый',
+    labs_title:'Лаборатории и CTF', labs_desc:'Изолированные лаборатории для практики. Необходимо принять условия использования.',
+    about_title:'О нас', about_desc:'SafeHack Academy — образовательная платформа по законной и этической подготовке в кибербезопасности. Все учащиеся подписывают соглашение перед доступом.',
+    terms_title:'Условия и соглашение', terms_intro:'Для доступа к лабораториям необходимо согласиться со следующими условиями:',
+    rule1:'Я обязуюсь использовать материалы только в учебных и защитных целях.',
+    rule2:'Я не буду применять техники против систем или сервисов без явного разрешения.',
+    rule3:'Я понимаю, что нарушение может привести к блокировке аккаунта и сообщению в соответствующие органы.',
+    agree_text:'Я согласен с условиями и беру на себя ответственность', access_labs:'Доступ к лаборатории',
+    instructor:'Инструктор', bio_short:'Годы опыта в кибербезопасности, специализация на защите приложений и сетей, приверженность законному обучению.',
+    quick_links:'Быстрые ссылки', footer_legal:'Законность и этичность'
+  }
+};
+
+/* ---------- Course Definitions (multilingual titles/descriptions) ---------- */
+const COURSES = [
+  {
+    id:'c1', level:'beginner',
+    title:{ar:'أساسيات الأمن السيبراني', en:'Cybersecurity Basics', ru:'Основы Кибербезопасности'},
+    desc:{ar:'مقدمة عن الشبكات، الأنظمة، ومبادئ الحماية.', en:'Intro to networks, systems and core security principles.', ru:'Введение в сети, системы и основные принципы безопасности.'},
+    lang:['ar','en','ru']
+  },
+  {
+    id:'c2', level:'beginner',
+    title:{ar:'أساسيات Web & OWASP', en:'Web Security & OWASP Basics', ru:'Безопасность Web и OWASP'},
+    desc:{ar:'مفاهيم مهمة لحماية تطبيقات الويب (نظري وتجريبي في مختبر معزول).', en:'Key concepts to secure web apps (theory + isolated lab).', ru:'Ключевые концепции защиты веб-приложений (теория + изолированные лаборатории).'},
+    lang:['ar','en','ru']
+  },
+  {
+    id:'c3', level:'advanced',
+    title:{ar:'اختبار الاختراق الأخلاقي (منهجي)', en:'Ethical Penetration Testing (Methodology)', ru:'Этичное тестирование на проникновение (методика)'},
+    desc:{ar:'نهج عملي لاختبار الأنظمة بشكل قانوني وفي بيئات معتمدة.', en:'Practical approach to test systems legally in authorized environments.', ru:'Практический подход к тестированию систем в легальной и авторизованной среде.'},
+    lang:['en','ru'] // example: course offered in EN & RU
+  },
+  {
+    id:'c4', level:'advanced',
+    title:{ar:'الاستجابة للحوادث والـForensics', en:'Incident Response & Forensics', ru:'Инцидент-реcпонс и судебная экспертиза'},
+    desc:{ar:'مبادئ البحث عن الهجمات والتعامل معها ومعالجة أثرها.', en:'Principles of investigating and responding to incidents.', ru:'Принципы расследования и реагирования на инциденты.'},
+    lang:['ar','en','ru']
+  }
+];
+
+/* ---------- App Logic ---------- */
+let currentLang = 'ar';
+
+function t(key){
+  return (STRINGS[currentLang] && STRINGS[currentLang][key]) || key;
+}
+
+function setLanguage(lang){
+  currentLang = lang;
+  // update lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b=>{ b.classList.toggle('active', b.dataset.lang===lang) });
+  // update text nodes
+  document.querySelectorAll('[data-i18]').forEach(el=>{
+    const k = el.getAttribute('data-i18');
+    el.textContent = t(k);
+  });
+  // update nav anchors (hrefs kept)
+  updateCoursesGrid();
+}
+
+// init language buttons
+document.querySelectorAll('.lang-btn').forEach(b=>{
+  b.addEventListener('click', ()=> setLanguage(b.dataset.lang));
+});
+
+// Courses grid render
+function updateCoursesGrid(filter='all'){
+  const grid = document.getElementById('courseGrid'); grid.innerHTML='';
+  COURSES.filter(c=> filter==='all' || c.level===filter ).forEach(c=>{
+    // show only courses that support currentLang, but allow display cross-lang with note
+    const supports = c.lang.includes(currentLang);
+    const card = document.createElement('div'); card.className='course';
+    const title = document.createElement('h3'); title.textContent = c.title[currentLang] || c.title['en'];
+    card.appendChild(title);
+    const p = document.createElement('p'); p.textContent = c.desc[currentLang] || c.desc['en'];
+    card.appendChild(p);
+    const footer = document.createElement('div'); footer.style.marginTop='10px';
+    const enroll = document.createElement('button'); enroll.className='btn'; enroll.textContent = (currentLang==='ar'?'التحق':'ENROLL');
+    enroll.onclick = ()=> openCourse(c.id);
+    footer.appendChild(enroll);
+    if(!supports){
+      const note = document.createElement('div'); note.className='small'; note.style.marginTop='8px'; note.style.color='var(--muted)';
+      note.textContent = (currentLang==='ar'?'متاح بلغة أخرى':'Available in another language');
+      footer.appendChild(note);
+    }
+    card.appendChild(footer);
+    grid.appendChild(card);
+  });
+}
+
+// tabs filter
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    updateCoursesGrid(tab.dataset.cat);
+  });
+});
+
+// page actions
+function openCourse(id){
+  const course = COURSES.find(c=>c.id===id);
+  if(!course) return;
+  const html = `
+    <h3 style="color:var(--accent)">${course.title[currentLang] || course.title.en}</h3>
+    <p style="color:var(--muted)">${course.desc[currentLang] || course.desc.en}</p>
+    <div style="margin-top:12px">
+      <p class="small">${ currentLang==='ar' ? 'مستويات، أهداف، ومحتوى الدرس سيظهر هنا.' : 'Syllabus, goals and content will go here.' }</p>
+      <button class="btn" onclick="closeModal();alert('${ currentLang==='ar' ? 'تم التسجيل الافتراضي (واجهة تجريبية)' : 'Demo enrolment (UI only)' }')">${ currentLang==='ar' ? 'سجّل الآن' : 'Enroll' }</button>
+    </div>
+  `;
+  openModalContent(html);
+}
+
+function openLab(key){
+  // require agreement
+  const agreed = document.getElementById('agreeRules').checked;
+  if(!agreed){
+    alert( currentLang==='ar' ? 'لا بدّ من الموافقة على الشروط قبل الوصول إلى المختبر.' : 'You must accept the terms before accessing labs.' );
+    return;
+  }
+  // For security: we don't provide live exploit instructions — open placeholder
+  openModalContent(`<h3 style="color:var(--accent)">${ key.toUpperCase() }</h3><p class="small">${ currentLang==='ar' ? 'سيتم فتح بيئة مختبر معزولة (واجهة تجريبية). تأكّد أنّك تعمل داخل البيئة المسموح بها.' : 'Accessing an isolated lab environment (demo). Ensure you operate only within authorized environments.' }</p><div style="margin-top:12px"><a class="btn" href="#" onclick="alert('Demo - launch lab (placeholder)')">${ currentLang==='ar' ? 'تشغيل المختبر' : 'Launch Lab' }</a></div>`);
+}
+
+function accessLabs(){
+  const agreed = document.getElementById('agreeRules').checked;
+  if(!agreed){
+    alert( currentLang==='ar' ? 'يرجى تفعيل مربع الموافقة.' : 'Please check the agreement box.' );
+    return;
+  }
+  alert( currentLang==='ar' ? 'تم تفعيل الوصول للمختبر — (demo) افتح زر المختبر.' : 'Lab access enabled (demo). Use lab buttons.' );
+}
+
+function openModalContent(html){
+  document.getElementById('modalContent').innerHTML = html;
+  openModal('generic');
+}
+
+function openModal(mode){
+  const modal = document.getElementById('modal');
+  modal.classList.add('active');
+  // populate modalContent based on mode
+  if(mode==='contact'){
+    document.getElementById('modalContent').innerHTML = `
+      <h3 style="color:var(--accent)">${ currentLang==='ar' ? 'اتصل بنا' : 'Contact Us' }</h3>
+      <div class="form-row"><label>${ currentLang==='ar' ? 'الاسم' : 'Name' }</label><input type="text" id="cname" /></div>
+      <div class="form-row"><label>Email</label><input type="email" id="cemail" /></div>
+      <div class="form-row"><label>${ currentLang==='ar' ? 'رسالة' : 'Message' }</label><textarea id="cmsg" rows="4"></textarea></div>
+      <div style="margin-top:10px"><button class="btn" onclick="alert('Demo: message sent')">${ currentLang==='ar' ? 'أرسل' : 'Send' }</button></div>
+    `;
+  } else if(mode==='signup'){
+    document.getElementById('modalContent').innerHTML = `
+      <h3 style="color:var(--accent)">${ currentLang==='ar' ? 'إنشاء حساب' : 'Create Account' }</h3>
+      <div class="form-row"><label>Name</label><input id="su_name" type="text" /></div>
+      <div class="form-row"><label>Email</label><input id="su_email" type="email" /></div>
+      <div class="form-row"><label>Password</label><input id="su_pw" type="password" /></div>
+      <div style="margin-top:10px"><button class="btn" onclick="alert('Demo: account created')">Submit</button></div>
+    `;
+  } else if(mode==='login'){
+    document.getElementById('modalContent').innerHTML = `
+      <h3 style="color:var(--accent)">${ currentLang==='ar' ? 'تسجيل الدخول' : 'Login' }</h3>
+      <div class="form-row"><label>Email</label><input id="li_email" type="email" /></div>
+      <div class="form-row"><label>Password</label><input id="li_pw" type="password" /></div>
+      <div style="margin-top:10px"><button class="btn" onclick="alert('Demo: logged in')">Login</button></div>
+    `;
+  } else {
+    document.getElementById('modalContent').innerHTML = `<div>${ currentLang==='ar' ? 'تفاصيل' : 'Details' }</div>`;
+  }
+}
+
+function closeModal(){ document.getElementById('modal').classList.remove('active'); }
+
+/* Login / signup buttons */
+document.getElementById('signupBtn').addEventListener('click', ()=> openModal('signup'));
+document.getElementById('loginBtn').addEventListener('click', ()=> openModal('login'));
+document.getElementById('startNow').addEventListener('click', ()=> openModal('signup'));
+
+/* initialize */
+setLanguage(currentLang);
+updateCoursesGrid();
+
+/* Optional: change profile name dynamically (Haithem) */
+document.getElementById('profileName').textContent = 'Haithem Aouled Amor';
+
+/* simple hash routing to sections */
+window.addEventListener('hashchange', ()=> {
+  const id = location.hash.replace('#','');
+  if(id) {
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+</script>
+</body>
+</html>
